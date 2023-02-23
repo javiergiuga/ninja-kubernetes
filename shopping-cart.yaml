@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-shopping-cart
+  labels:
+    app: shopping
+spec:
+  selector:
+    matchLabels:
+      app: shopping
+  template:
+    metadata:
+      labels:
+        app: shopping
+    spec:
+      containers:
+      - name: shopping-cart-image
+        image: javiergiuga/ms-shopping-develop:1.0.0
+        ports:
+        - name: port-shopping
+          containerPort: 3002

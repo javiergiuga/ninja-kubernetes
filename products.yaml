@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-products
+  labels:
+    app: products
+spec:
+  selector:
+    matchLabels:
+      app: products
+  template:
+    metadata:
+      labels:
+        app: products
+    spec:
+      containers:
+      - name: products-image
+        image: javiergiuga/ms-products-develop:1.0.0
+        ports:
+        - name: port-products
+          containerPort: 3001

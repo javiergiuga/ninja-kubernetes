@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-frontend
+  labels:
+    app: frontend
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend-image
+        image: javiergiuga/ms-front-develop:1.0.0
+        ports:
+        -  containerPort: 3000
+        env:
+          - name: PRODUCTS_SERVICE
+            value: service-products
+          - name: SHOPPING_CART_SERVICE 
+            value: service-shopping
