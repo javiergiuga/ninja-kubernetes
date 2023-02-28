@@ -99,6 +99,19 @@ spec:
 
 ---
 
+metadata:
+  name: service-products
+  namespace: ninja
+spec:
+  selector:
+    app: products
+  ports:
+  - name: service-products
+    port: 3001
+    targetPort: port-products
+
+---
+
 apiVersion: v1
 kind: Service
 metadata:
