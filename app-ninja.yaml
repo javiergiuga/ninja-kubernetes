@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-shopping-cart
+  namespace: ninja
+  labels:
+    app: shopping
+spec:
+  selector:
+    matchLabels:
+      app: shopping
+  template:
+    metadata:
+      labels:
+        app: shopping
+    spec:
+      containers:
+      - name: shopping-cart-image
+        image: javiergiuga/ms-shopping-develop:1.0.0
+        ports:
+        - name: port-shopping
+          containerPort: 3002
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-products
+  namespace: ninja
+  labels:
+    app: products
+spec:
+  selector:
+    matchLabels:
+      app: products
+  template:
+    metadata:
+      labels:
+        app: products
+    spec:
+      containers:
+      - name: products-image
+        image: javiergiuga/ms-products-develop:1.0.0
+        ports:
+        - name: port-products
+          containerPort: 3001
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-frontend
+  namespace: ninja
+  labels:
+    app: frontend
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend-image
+        image: javiergiuga/ms-front-develop:1.0.0
+        ports:
+        -  containerPort: 3000
+        env:
+          - name: PRODUCTS_SERVICE
+            value: service-products
+          - name: SHOPPING_CART_SERVICE 
+            value: service-shopping
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-shopping
+  namespace: ninja
+spec:
+  selector:
+    app: shopping
+  ports:
+  - name: service-shopping
+    port: 3002
+    targetPort: port-shopping
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-frontend
+  namespace: ninja
+spec:
+  type: NodePort
+  selector:
+    app: frontend
+  ports:
+  - name: service-frontend
+    port: 3000
+    targetPort: 31000

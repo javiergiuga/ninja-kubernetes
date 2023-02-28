@@ -4,7 +4,6 @@ metadata:
   name: service-products
   namespace: ninja
 spec:
-  type: NodePort
   selector:
     app: products
   ports:
