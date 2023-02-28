@@ -10,4 +10,4 @@ spec:
   ports:
   - name: service-frontend
     port: 3000
-    targetPort: 31000
+    targetPort: 3000
