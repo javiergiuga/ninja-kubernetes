@@ -98,7 +98,8 @@ spec:
     targetPort: port-shopping
 
 ---
-
+apiVersion: v1
+kind: Service
 metadata:
   name: service-products
   namespace: ninja
